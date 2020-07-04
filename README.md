@@ -1,3 +1,3 @@
 # Python Code Snippets
 
-Short scripts written in Python
+Scripts written in Python
