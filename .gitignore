@@ -1,0 +1,4 @@
+*.env
+credentials.json
+emails.txt
+token.pickle
