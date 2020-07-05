@@ -13,6 +13,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 SPREADSHEET_ID = os.getenv('SUBSCRIPTIONS_SHEET')
 EMAIL_RANGE = 'Emails!B2:B'
 
+
 def main():
     creds = None
     if os.path.exists('token.pickle'):
@@ -38,9 +39,10 @@ def main():
     if not values:
         print('No data found.')
     else:
-        file = open("emails.txt","w")
+        file = open("emails.txt", "w")
         for row in values:
             file.write(row[0]+"\n")
+
 
 if __name__ == '__main__':
     main()
