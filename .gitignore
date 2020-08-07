@@ -1,3 +1,5 @@
+*.csv
+*.db
 *.env
 credentials.json
 emails.txt
