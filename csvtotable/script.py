@@ -1,12 +1,23 @@
 import sqlite3
 import sys
 import csv
+import os
 
 if len(sys.argv) == 1:
     print("Provide filename as command line argument")
     sys.exit()
 
-with open(sys.argv[1], newline='') as csvFile:
+file = sys.argv[1]
+
+if not os.path.isfile(file):
+    print("File does not exist")
+    sys.exit()
+
+if file[-3:] != "csv":
+    print("Not a .csv file")
+    sys.exit()
+
+with open(file, newline='') as csvFile:
     csv_reader = csv.reader(csvFile)
     headings = next(csv_reader)
 
