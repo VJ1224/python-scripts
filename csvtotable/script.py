@@ -28,6 +28,7 @@ def main():
 
         query = "CREATE TABLE IF NOT EXISTS data ({column_names})".format(column_names=','.join(headings))
         cursor.execute(query)
+        print("Table Created")
 
         records = []
         for row in csv_reader:
@@ -39,9 +40,11 @@ def main():
         vals = vals[:-1] + ")"
 
         cursor.executemany("INSERT INTO data VALUES {values}".format(values=vals), records)
+        print("Values inserted")
 
         connection.commit()
         connection.close()
+        print("Done")
 
 if __name__ == "__main__":
     main()

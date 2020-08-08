@@ -6,40 +6,45 @@ from dotenv import load_dotenv
 load_dotenv()
 
 reddit = praw.Reddit(client_id=os.getenv('REDDIT_ID'), 
-                     client_secret=os.getenv('REDDIT_SECRET'),
-                     password=os.getenv('REDDIT_PASSWORD'),
-                     user_agent='PrawTut',
-                     username=os.getenv('REDDIT_USERNAME'))
+                    client_secret=os.getenv('REDDIT_SECRET'),
+                    password=os.getenv('REDDIT_PASSWORD'),
+                    user_agent='PrawTut',
+                    username=os.getenv('REDDIT_USERNAME'))
 
-print("Logged in")
 
-subreddit_name = "vanshjain"
-subreddit = reddit.subreddit(subreddit_name)
-new_posts = subreddit.new(limit=5)
+def main():
+    print("Logged in")
 
-print("Got posts")
+    subreddit_name = "vanshjain"
+    subreddit = reddit.subreddit(subreddit_name)
+    new_posts = subreddit.new(limit=5)
 
-content = ""
+    print("Posts retrieved")
 
-for post in new_posts:
-    content = content + post.title + "\n"
-    content = content + post.url + "\n\n"
+    content = ""
 
-email = os.getenv('GMAIL_EMAIL')
-message = "\r\n".join([
-    "From: " + email,
-    "To: " + email,
-    "Subject: New posts on " + subreddit_name,
-    "",
-    content
-    ])
+    for post in new_posts:
+        content = content + post.title + "\n"
+        content = content + post.url + "\n\n"
 
-session = smtplib.SMTP('smtp.gmail.com', 587)
-session.ehlo()
-session.starttls()
-session.login(email, os.getenv('GMAIL_PASSWORD'))
+    email = os.getenv('GMAIL_EMAIL')
+    message = "\r\n".join([
+        "From: " + email,
+        "To: " + email,
+        "Subject: New posts on " + subreddit_name,
+        "",
+        content
+        ])
 
-session.sendmail(email, email, message)
-session.quit()
+    session = smtplib.SMTP('smtp.gmail.com', 587)
+    session.ehlo()
+    session.starttls()
+    session.login(email, os.getenv('GMAIL_PASSWORD'))
 
-print("Mail sent")
+    session.sendmail(email, email, message)
+    session.quit()
+
+    print("Mail sent")
+
+if __name__ == "__main__":
+    main()

@@ -1,14 +1,14 @@
 from __future__ import print_function
 import pickle
 import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+from googleapiclient.discovery import build # noqa
+from google_auth_oauthlib.flow import InstalledAppFlow # noqa
+from google.auth.transport.requests import Request # noqa
 from dotenv import load_dotenv
 
 load_dotenv()
 
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 SPREADSHEET_ID = os.getenv('SUBSCRIPTIONS_SHEET')
 EMAIL_RANGE = 'Emails!B2:B'
@@ -42,6 +42,7 @@ def main():
         file = open("emails.txt", "w")
         for row in values:
             file.write(row[0]+"\n")
+        print("File created")
 
 
 if __name__ == '__main__':
