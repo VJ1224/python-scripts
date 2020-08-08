@@ -17,11 +17,12 @@ if file[-3:] != "csv":
     print("Not a .csv file")
     sys.exit()
 
-with open(file, newline='') as csvFile:
+with open(file, newline='', encoding='utf-8') as csvFile:
     csv_reader = csv.reader(csvFile)
     headings = next(csv_reader)
-
-    connection = sqlite3.connect('data.db')
+    
+    database_name = file[:-3] + ".db"
+    connection = sqlite3.connect(database_name)
     cursor = connection.cursor()
 
     query = "CREATE TABLE IF NOT EXISTS data ({column_names})".format(column_names=','.join(headings))
