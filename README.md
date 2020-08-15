@@ -1,3 +1,3 @@
-# Python Code Snippets
+# Python Scripts
 
 Scripts written in Python
