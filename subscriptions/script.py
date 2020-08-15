@@ -10,8 +10,8 @@ load_dotenv()
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-SPREADSHEET_ID = os.getenv('SUBSCRIPTIONS_SHEET')
-EMAIL_RANGE = 'Emails!B2:B'
+SPREADSHEET_ID = os.getenv('SUBSCRIPTIONS_SHEET') # Sheet ID in environment variables
+EMAIL_RANGE = 'Emails!B2:B' # Edit Range
 
 
 def main():
@@ -39,7 +39,7 @@ def main():
     if not values:
         print('No data found.')
     else:
-        file = open("emails.txt", "w")
+        file = open("emails.txt", "w") # Change filename
         for row in values:
             file.write(row[0]+"\n")
         print("File created")

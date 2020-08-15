@@ -1,5 +1,6 @@
 import praw
 import os
+import sys
 import smtplib
 from dotenv import load_dotenv
 
@@ -13,9 +14,13 @@ reddit = praw.Reddit(client_id=os.getenv('REDDIT_ID'),
 
 
 def main():
+    if len(sys.argv) < 2:
+        print("Usage: python script.py <subreddit>")
+        return
+
     print("Logged in")
 
-    subreddit_name = "vanshjain"
+    subreddit_name = sys.argv[1]
     subreddit = reddit.subreddit(subreddit_name)
     new_posts = subreddit.new(limit=5)
 
@@ -41,7 +46,7 @@ def main():
     session.starttls()
     session.login(email, os.getenv('GMAIL_PASSWORD'))
 
-    session.sendmail(email, email, message)
+    session.sendmail(email, email, message.encode('utf-8'))
     session.quit()
 
     print("Mail sent")
